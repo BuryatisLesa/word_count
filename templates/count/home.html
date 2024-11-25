@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter</title>
+</head>
+<body>
+    <h1>Word Counter</h1>
+
+    <h2>Загрузить файл</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="upload_file" required>
+        <button type="submit">Загрузить файл</button>
+    </form>
+
+    <h2>Запросить количество слова</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="wordcount" placeholder="Введите слово" required>
+        <button type="submit">Подсчитать</button>
+    </form>
+
+    <h2>Очистить память</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" name="clear_memory">Очистить</button>
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if count is not none %}
+        <p>Слово "{{ word }}" встречается {{ count }} раз(а).</p>
+    {% endif %}
+</body>
+</html>
